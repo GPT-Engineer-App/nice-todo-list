@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Container, VStack, HStack, Input, Button, IconButton, Text, Checkbox, Box } from "@chakra-ui/react";
+import { Container, VStack, HStack, Input, Button, IconButton, Text, Checkbox, Box, useDisclosure } from "@chakra-ui/react";
+import TaskDialog from "../components/TaskDialog";
 import { FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentTask, setCurrentTask] = useState(null);
 
   const addTask = () => {
     if (taskInput.trim() !== "") {
@@ -23,6 +27,16 @@ const Index = () => {
     setTasks(newTasks);
   };
 
+  const openTaskDialog = (task, index) => {
+    setCurrentTask({ ...task, index });
+    onOpen();
+  };
+
+  const updateTask = (updatedTask) => {
+    const newTasks = tasks.map((task, i) => (i === updatedTask.index ? updatedTask : task));
+    setTasks(newTasks);
+  };
+
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4} width="100%">
@@ -36,14 +50,17 @@ const Index = () => {
         <VStack spacing={2} width="100%">
           {tasks.map((task, index) => (
             <HStack key={index} width="100%" justifyContent="space-between">
-              <Checkbox isChecked={task.completed} onChange={() => toggleTaskCompletion(index)}>
-                {task.text}
-              </Checkbox>
+              <Box onClick={() => openTaskDialog(task, index)} cursor="pointer" flex="1">
+                <Checkbox isChecked={task.completed} onChange={() => toggleTaskCompletion(index)}>
+                  {task.text}
+                </Checkbox>
+              </Box>
               <IconButton aria-label="Delete task" icon={<FaTrash />} onClick={() => deleteTask(index)} />
             </HStack>
           ))}
         </VStack>
       </VStack>
+      <TaskDialog isOpen={isOpen} onClose={onClose} task={currentTask} updateTask={updateTask} />
     </Container>
   );
 };
