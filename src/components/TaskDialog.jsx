@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input, Select } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input, Select, FormLabel } from "@chakra-ui/react";
 
 const TaskDialog = ({ isOpen, onClose, task, updateTask }) => {
   const [description, setDescription] = useState("");
@@ -24,8 +24,10 @@ const TaskDialog = ({ isOpen, onClose, task, updateTask }) => {
         <ModalHeader>Edit Task</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          <FormLabel>Description</FormLabel>
           <Input placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-          <Select mt={4} value={status} onChange={(e) => setStatus(e.target.value)}>
+          <FormLabel mt={4}>Status</FormLabel>
+          <Select value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="todo">Todo</option>
             <option value="doing">Doing</option>
             <option value="completed">Completed</option>
