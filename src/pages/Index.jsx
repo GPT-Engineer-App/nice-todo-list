@@ -38,8 +38,8 @@ const Index = () => {
   };
 
   return (
-    <Box backgroundImage="url('https://source.unsplash.com/random')" backgroundSize="cover" backgroundPosition="center" width="100%" height="100vh">
-      <Box backgroundImage="url('https://source.unsplash.com/random')" backgroundSize="cover" backgroundPosition="center" width="100%" height="100vh">
+    <Box backgroundImage="url('https://example.com/anime-girl.jpg')" backgroundSize="cover" backgroundPosition="center" width="100%" height="100vh">
+      <Box backgroundImage="url('https://example.com/anime-girl.jpg')" backgroundSize="cover" backgroundPosition="center" width="100%" height="100vh">
         <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
           <VStack spacing={4} width="100%">
             <Text fontSize="2xl">Todo List</Text>
